@@ -37,7 +37,7 @@ payloads, templates, and failure rules.
 |---|---|---|---|
 | `planning` | creates a new report/dashboard and needs requirements, model/dependency inspection, scope, a page plan, and approval before implementation | create a report, build a dashboard, create from a semantic model, plan then implement, walk me through creating a report | [references/planning.md](references/planning.md), then [references/planning-part-02.md](references/planning-part-02.md) |
 | `design` | decides what a report should look like: tone, signature, page archetype, chart type, layout, color, typography, theme direction, accessibility, brand application, redesign, or critique | design a Power BI report, make the dashboard professional, choose a chart, apply a brand, redesign the report, create a design brief | [references/design.md](references/design.md) |
-| `authoring` | reads or edits local PBIR/PBIP files, validates them, previews the report, or captures screenshots | edit PBIR, create/add a report page or visual, format a visual, add filters/slicers/bookmarks/themes, validate PBIR, preview/reload/screenshot in Desktop or service | [references/authoring.md](references/authoring.md) |
+| `authoring` | implements an already approved report design, reads or edits local PBIR/PBIP files, validates them, previews the report, or captures screenshots | implement an externally approved design, edit PBIR, create/add a report page or visual, format a visual, add filters/slicers/bookmarks/themes, validate PBIR, preview/reload/screenshot in Desktop or service | [references/authoring.md](references/authoring.md) |
 | `management` | moves a report definition to or from Fabric or manages the workspace report item | publish/upload/download PBIR or PBIP, list reports, get/update/delete a report, rebind a report | [references/management.md](references/management.md) |
 
 ## Mode Boundary Rules
@@ -55,6 +55,10 @@ payloads, templates, and failure rules.
   not invent or directly author PBIR content.
 - `planning` owns the guided requirements-to-approval flow for a new report. A
   focused edit to an existing report goes directly to `authoring`.
+- A request to implement an externally approved design can also start at
+  `authoring`, including for a new report. Follow
+  [Greenfield / Design Handoff](references/authoring-part-02.md#greenfield--design-handoff)
+  to establish approval, check inputs, and preserve the supplied design.
 
 A greenfield request can span modes in this order:
 
@@ -63,13 +67,14 @@ planning -> design -> authoring -> management
 ```
 
 Handle one mode at a time. Announce each switch and read the new mode reference
-before starting that part. The `planning` approval gate is a turn boundary:
-never build or publish until the user explicitly approves the locked spec in a
-later reply.
+before starting that part. When producing a new spec through `planning`, its
+approval gate is a turn boundary: never build or publish until the user
+explicitly approves the locked spec in a later reply.
 
 > **GREENFIELD APPROVAL BARRIER — MANDATORY.** When a new-report request asks
-> to plan, build, and/or publish but the user has not approved a locked spec in
-> a prior reply, set the current phase to `approval_pending` and keep
+> to plan, build, and/or publish without either a locked spec approved in a prior
+> reply or an externally approved design established with the user under the
+> handoff above, set the current phase to `approval_pending` and keep
 > `planning` as the only active mode. In this phase, do not load `authoring` or
 > `management`, edit/scaffold PBIR or semantic-model files, generate synthetic
 > data, call Fabric write APIs, or publish. Persist `_brief/report-spec.md`, ask

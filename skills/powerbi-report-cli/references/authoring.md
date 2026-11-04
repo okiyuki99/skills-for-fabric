@@ -234,7 +234,9 @@ definition files in the **PBIR (Power BI Report)** format used by **PBIP
 
 ### PREFER
 
-- Start from an approved `Design Brief:` or `_brief/report-spec.md` for greenfield report builds.
+- Start from an approved `Design Brief:`, `_brief/report-spec.md`, or externally
+  approved design for greenfield report builds; see
+  [Greenfield / Design Handoff](authoring-part-02.md#greenfield--design-handoff).
 - Route visual-design uncertainty to the `design` mode before writing files.
 - For semantic model metadata or model-side changes, use a semantic-model authoring skill, Power BI Modeling MCP, or local TMDL files when available.
 
@@ -245,12 +247,15 @@ definition files in the **PBIR (Power BI Report)** format used by **PBIP
 
 ## Quick Start Workflow
 
-0. **Plan/design routing** → for greenfield builds, read the `planning` mode
-   first; for theming, visual style, layout, redesigns, or critiques, read
-   the `design` mode. Return here for PBIR mechanics. Before authoring,
-   use the `Design Brief:` yaml block from `_brief/report-spec.md` (or an
-   approved inline `Design Brief:` block in the conversation) as implementation
-   context.
+0. **Plan/design routing** → when implementing an already approved design,
+   use its `Design Brief:` YAML. For external designs, first apply the explicit
+   approval conditions in [Mode Boundary Rules](../SKILL.md#mode-boundary-rules),
+   then follow
+   [Greenfield / Design Handoff](authoring-part-02.md#greenfield--design-handoff)
+   if eligible. Do not repeat planning or design approval for that
+   scope. For a new report that still needs requirements or approval, read the
+   `planning` mode first. For open-ended visual-design decisions or critiques,
+   read the `design` mode. Return here for PBIR mechanics.
 1. **Set up/update CLI** → before first use, confirm `powerbi-report-author`
    is available; see **CLI Setup** in `authoring-part-02.md`.
 2. **Understand the model** → use the Semantic Model MCP Server/skill if available,

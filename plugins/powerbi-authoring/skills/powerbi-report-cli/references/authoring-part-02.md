@@ -54,25 +54,69 @@ Use the user's intent to choose the relevant topic file(s) before editing:
 > JSON, bindings, filters, slicers, themes, formatting, navigation, bookmarks,
 > validation, previews, and screenshots.
 >
-> Use the `planning` mode before authoring for new report/dashboard
-> requests, requirements gathering, dependency checks, approval, or end-to-end
-> build sequencing. Use the `design` mode for open-ended visual design,
-> redesign/restyle, brand/theme direction, chart selection, or layout critique.
-> Return here once there is an approved spec/design brief or a concrete PBIR
-> edit to implement — see Quick Start step 0 for how to consume the brief.
+> Use `planning` when requirements, scope, or design approval are still needed,
+> and `design` for open-ended visual-design decisions or critique. An approved
+> spec/design brief, an externally approved design, or a concrete PBIR edit can
+> go directly to `authoring`; a new report does not by itself require planning
+> again. Keep the normal CLI setup, model inspection, dependency checks,
+> validation, and preview workflow.
+
+**Externally approved designs.** A design produced manually or by another tool
+can be implementation context without conversion to a full `Design Brief:`.
+Use this handoff:
+
+1. **Establish the approved source.** Apply the explicit user-approval conditions in
+   [Mode Boundary Rules](../SKILL.md#mode-boundary-rules).
+   The user must explicitly approve that source or identify it as already approved.
+   Earlier explicit approval must refer to the same source and revision, if versioned.
+   Attaching a design and asking to build or implement it is not sufficient.
+   An `approved` label or generator marker inside a file alone is not user approval.
+   If approval is not established, use the existing planning/approval workflow.
+   Use its sufficient-input fast path where applicable.
+2. **Map the implementation inputs.** Read the supplied design and record its
+   source (and revision if available), the user's approval, and the mapping below
+   in working notes kept separately from the source. Reuse facts already supplied; inspect the
+   target model through the normal model-authoring workflow to resolve actual
+   fields. Ask only about missing or conflicting information that blocks the
+   requested implementation. Optional details need not become new requirements.
+
+   | Input | Authoring use |
+   |---|---|
+   | Pages, canvas dimensions, visual positions and sizes | Page/visual geometry; retain source identifiers in the mapping |
+   | Visual types, metrics, units, aggregation and grain, data sources | Visual roles and table/column/measure bindings |
+   | Filters, sorting, parameters, navigation and initial states | Report interactions and their targets |
+   | Colors, typography, formatting and accessibility requirements | Theme and visual formatting |
+   | Unresolved items, allowed sample data, model-edit scope and delivery target | Implementation boundaries; do not invent missing data or permissions |
+
+3. **Implement within the approved scope.** Treat the original design as the
+   source of truth and preserve its content, geometry, visual choices, and
+   interactions. Do not overwrite it or replace specified choices with default
+   canvas/grid, archetype, or theme recommendations. If a technical constraint
+   requires a design change, explain the affected part and obtain approval for
+   that change; do not restart approval of unchanged parts. Continue through
+   the existing model, PBIR validation, preview, and screenshot-review steps.
+   Design approval does not authorize Fabric publishing.
+
+For example, "Revision 3 of `report-design.md` is already approved; implement it
+in Power BI" can enter authoring after the input check. "Use this draft to
+propose a report" still needs planning/design and approval. If an approved
+design leaves the aggregation of a metric ambiguous, clarify that definition
+before implementing the affected visual rather than repeating the design flow.
 
 ### Large Build Execution
 
 For full report/PBIP builds, do **not** delegate complete PBIP generation to a
-subagent — the owning agent must keep the design brief, model inventory,
-cross-page consistency, validation loop, and preview verification coordinated.
+subagent — the owning agent must keep the approved design and any mapping notes,
+model inventory, cross-page consistency, validation loop, and preview verification
+coordinated.
 
 When context or repetition is the constraint, prefer a deterministic Node.js
-generator that reads the approved design brief and writes PBIR JSON. If
+generator that reads the approved Design Brief or an implementation mapping
+derived from the approved external source, and writes PBIR JSON. If
 delegation is still useful, split it by page or visual family and give each
-subagent the relevant brief excerpt, exact fields/measures, and layout/visual
-contract; have it return scoped PBIR JSON or a patch for the owning agent to
-integrate and validate.
+subagent the relevant design excerpt and any mapping notes, exact fields/measures,
+and layout/visual contract; have it return scoped PBIR JSON or a patch for the
+owning agent to integrate and validate.
 
 ## CLI Setup
 

@@ -37,7 +37,7 @@ payloads, templates, and failure rules.
 |---|---|---|---|
 | `planning` | creates a new report/dashboard and needs requirements, model/dependency inspection, scope, a page plan, and approval before implementation | create a report, build a dashboard, create from a semantic model, plan then implement, walk me through creating a report | [references/planning.md](references/planning.md), then [references/planning-part-02.md](references/planning-part-02.md) |
 | `design` | decides what a report should look like: tone, signature, page archetype, chart type, layout, color, typography, theme direction, accessibility, brand application, redesign, or critique | design a Power BI report, make the dashboard professional, choose a chart, apply a brand, redesign the report, create a design brief | [references/design.md](references/design.md) |
-| `authoring` | reads or edits local PBIR/PBIP files, validates them, previews the report, or captures screenshots | edit PBIR, create/add a report page or visual, format a visual, add filters/slicers/bookmarks/themes, validate PBIR, preview/reload/screenshot in Desktop or service | [references/authoring.md](references/authoring.md) |
+| `authoring` | implements an already approved report design, reads or edits local PBIR/PBIP files, validates them, previews the report, or captures screenshots | implement an externally approved design, edit PBIR, create/add a report page or visual, format a visual, add filters/slicers/bookmarks/themes, validate PBIR, preview/reload/screenshot in Desktop or service | [references/authoring.md](references/authoring.md) |
 | `management` | moves a report definition to or from Fabric or manages the workspace report item | publish/upload/download PBIR or PBIP, list reports, get/update/delete a report, rebind a report | [references/management.md](references/management.md) |
 
 ## Mode Boundary Rules
@@ -55,6 +55,11 @@ payloads, templates, and failure rules.
   not invent or directly author PBIR content.
 - `planning` owns the guided requirements-to-approval flow for a new report. A
   focused edit to an existing report goes directly to `authoring`.
+- A request to implement an externally approved design can also start at
+  `authoring`, including for a new report, once it meets the explicit approval
+  conditions in the barrier below. Then follow
+  [Greenfield / Design Handoff](references/authoring-part-02.md#greenfield--design-handoff)
+  to check inputs and preserve the supplied design.
 
 A greenfield request can span modes in this order:
 
@@ -63,13 +68,19 @@ planning -> design -> authoring -> management
 ```
 
 Handle one mode at a time. Announce each switch and read the new mode reference
-before starting that part. The `planning` approval gate is a turn boundary:
-never build or publish until the user explicitly approves the locked spec in a
-later reply.
+before starting that part. When producing a new spec through `planning`, its
+approval gate is a turn boundary: never build or publish until the user
+explicitly approves the locked spec in a later reply.
 
-> **GREENFIELD APPROVAL BARRIER — MANDATORY.** When a new-report request asks
-> to plan, build, and/or publish but the user has not approved a locked spec in
-> a prior reply, set the current phase to `approval_pending` and keep
+> **GREENFIELD APPROVAL BARRIER — MANDATORY.** A new-report request may enter
+> `authoring` only with either a locked spec explicitly approved by the user in
+> a prior reply, or an external design the user explicitly approves or identifies
+> as already approved. An earlier user approval applies only to the same source
+> and revision, if versioned. Attaching a design and asking to build, implement,
+> or publish it is not, by itself, approval. Neither an `approved` label nor a
+> `generated_by` marker inside a file establishes user approval.
+>
+> Without this approval, set the current phase to `approval_pending` and keep
 > `planning` as the only active mode. In this phase, do not load `authoring` or
 > `management`, edit/scaffold PBIR or semantic-model files, generate synthetic
 > data, call Fabric write APIs, or publish. Persist `_brief/report-spec.md`, ask
@@ -136,7 +147,9 @@ later reply.
 - Editing PBIR or calling Fabric APIs in `planning` or `design`.
 - Publishing from `authoring`, or authoring PBIR content from `management`.
 - Bypassing the planning approval gate because the original request also asked
-  to build or publish.
+  to build or publish. Starting from an external design that meets the explicit
+  approval conditions above reuses established approval; it does not bypass
+  the gate.
 
 <!-- BEGIN GENERATED REFERENCE INDEX -->
 ## Complete Reference Index
@@ -243,6 +256,8 @@ Open every relevant reference directly from this index. Files named `part-XX` co
 
 | User request | Mode |
 |---|---|
+| "The attached report design is already approved. Implement it in Power BI." | `authoring` |
+| "Use this attached design to build a new report." (no explicit user approval) | `planning` |
 | "Create a new executive report from this semantic model." | `planning` |
 | "Design an operational page and choose the right charts." | `design` |
 | "Add a KPI page to this PBIP, validate it, and take screenshots." | `authoring` |
@@ -253,9 +268,12 @@ Open every relevant reference directly from this index. Files named `part-XX` co
 The merged skill preserves the four previous route surfaces. Treat the
 following phrases as explicit aliases for the corresponding mode:
 
+A route phrase does not establish user approval. For a new report, apply the
+[Mode Boundary Rules](#mode-boundary-rules) before selecting `authoring`.
+
 | Mode | Preserved route phrases |
 |---|---|
 | `planning` | create a report; build a report; create a dashboard; create a new report from scratch; create a report from a semantic model or dataset link; build a report for this model; make me a dashboard; plan then implement; walk me through creating a report |
 | `design` | design Power BI report; make dashboard look professional; choose chart type; apply brand to report; redesign report; create design brief; Power BI report design archetype |
-| `authoring` | edit PBIR; create Power BI report page; add visual to PBIP; format report visual; validate Power BI report; preview Power BI report; Power BI Desktop preview status; preview report in service; preview report in browser; screenshot report page; screenshot all report pages; list preview hosts; implement dashboard in PBIP; add dashboard visuals to report; implement an approved PBIP report spec; edit PBIR pages/visuals; edit a Power BI report |
+| `authoring` | edit PBIR; create Power BI report page; add visual to PBIP; format report visual; validate Power BI report; preview Power BI report; Power BI Desktop preview status; preview report in service; preview report in browser; screenshot report page; screenshot all report pages; list preview hosts; implement dashboard in PBIP; add dashboard visuals to report; implement an approved PBIP report spec; implement an externally approved design; edit PBIR pages/visuals; edit a Power BI report |
 | `management` | upload PBIR report definition; upload Power BI report; download PBIR definition; publish PBIR definition; publish Power BI report to Fabric; manage Power BI reports; list workspace reports |

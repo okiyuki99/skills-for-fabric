@@ -65,12 +65,14 @@ Use the user's intent to choose the relevant topic file(s) before editing:
 can be implementation context without conversion to a full `Design Brief:`.
 Use this handoff:
 
-1. **Establish the approved source.** The user must identify the supplied
-   document as already approved, or approval of that same source must be clear
-   from the conversation. An `approved` label or generator marker inside a file
-   alone is not user approval. If approval is not established, use the existing
-   planning/approval workflow, including its sufficient-input fast path where
-   applicable.
+1. **Establish the approved source.** Apply the explicit user-approval conditions in
+   [Mode Boundary Rules](../SKILL.md#mode-boundary-rules).
+   The user must explicitly approve that source or identify it as already approved.
+   Earlier explicit approval must refer to the same source and revision, if versioned.
+   Attaching a design and asking to build or implement it is not sufficient.
+   An `approved` label or generator marker inside a file alone is not user approval.
+   If approval is not established, use the existing planning/approval workflow.
+   Use its sufficient-input fast path where applicable.
 2. **Map the implementation inputs.** Read the supplied design and record its
    source (and revision if available), the user's approval, and the mapping below
    in working notes kept separately from the source. Reuse facts already supplied; inspect the
@@ -104,15 +106,17 @@ before implementing the affected visual rather than repeating the design flow.
 ### Large Build Execution
 
 For full report/PBIP builds, do **not** delegate complete PBIP generation to a
-subagent — the owning agent must keep the design brief, model inventory,
-cross-page consistency, validation loop, and preview verification coordinated.
+subagent — the owning agent must keep the approved design and any mapping notes,
+model inventory, cross-page consistency, validation loop, and preview verification
+coordinated.
 
 When context or repetition is the constraint, prefer a deterministic Node.js
-generator that reads the approved design brief and writes PBIR JSON. If
+generator that reads the approved Design Brief or an implementation mapping
+derived from the approved external source, and writes PBIR JSON. If
 delegation is still useful, split it by page or visual family and give each
-subagent the relevant brief excerpt, exact fields/measures, and layout/visual
-contract; have it return scoped PBIR JSON or a patch for the owning agent to
-integrate and validate.
+subagent the relevant design excerpt and any mapping notes, exact fields/measures,
+and layout/visual contract; have it return scoped PBIR JSON or a patch for the
+owning agent to integrate and validate.
 
 ## CLI Setup
 

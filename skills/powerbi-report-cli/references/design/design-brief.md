@@ -35,7 +35,8 @@ The marker is not decorative. Planner and authoring use it to distinguish a
 design-owned contract from a planner draft or prose-only wireframe.
 
 These markers identify briefs produced by this skill; they are not evidence of
-user approval. For an externally approved design, follow
+user approval. For an external design, first apply the explicit approval conditions in
+[Mode Boundary Rules](../../SKILL.md#mode-boundary-rules), then follow
 [Greenfield / Design Handoff](../authoring-part-02.md#greenfield--design-handoff).
 Keep the original document, generator metadata, and any contract version
 unchanged, and record the source and implementation mapping separately. Do not

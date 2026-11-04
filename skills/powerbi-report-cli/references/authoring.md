@@ -248,9 +248,11 @@ definition files in the **PBIR (Power BI Report)** format used by **PBIP
 ## Quick Start Workflow
 
 0. **Plan/design routing** → when implementing an already approved design,
-   use its `Design Brief:` YAML or follow
+   use its `Design Brief:` YAML. For external designs, first apply the explicit
+   approval conditions in [Mode Boundary Rules](../SKILL.md#mode-boundary-rules),
+   then follow
    [Greenfield / Design Handoff](authoring-part-02.md#greenfield--design-handoff)
-   for external documents. Do not repeat planning or design approval for that
+   if eligible. Do not repeat planning or design approval for that
    scope. For a new report that still needs requirements or approval, read the
    `planning` mode first. For open-ended visual-design decisions or critiques,
    read the `design` mode. Return here for PBIR mechanics.

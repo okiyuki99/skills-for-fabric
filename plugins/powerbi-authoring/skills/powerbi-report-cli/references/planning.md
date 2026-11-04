@@ -69,6 +69,12 @@ Examples:
 - "Use the report playbook to start a new report."
 - "Create a reusable workflow for new Power BI reports."
 
+Do **not** repeat planning for an external design that meets the explicit
+approval conditions in [Mode Boundary Rules](../SKILL.md#mode-boundary-rules).
+Route its implementation to `authoring` and
+[Greenfield / Design Handoff](authoring-part-02.md#greenfield--design-handoff).
+The planning and approval steps below apply when that approval is not established.
+
 Do **not** use this skill for a small edit to an existing report page. For
 direct PBIR authoring tasks, use the `authoring` mode. For visual critique or
 greenfield design guidance **without the full guided workflow** (a one-off
